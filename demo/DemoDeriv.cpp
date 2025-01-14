@@ -246,7 +246,7 @@ void print(const auto& testcases)
             std::get<0>(item),
             std::get<1>(item),
             std::get<2>(item),
-            std::get< 3 >(item)(std::get< 1 >(item)))
+            std::get<3>(item)(std::get<1>(item)))
                   << std::endl;
         ++index;
     }
