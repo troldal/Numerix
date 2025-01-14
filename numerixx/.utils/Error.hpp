@@ -60,7 +60,7 @@ namespace nxx
                                const std::source_location&   loc   = std::source_location::current(),
           std::stacktrace trace = std::stacktrace())
         : std::runtime_error{ str }, m_type{ type }, m_location{ loc }, m_backtrace{ std::move(trace) }
-        // m_os { hwinfo::getOSInfo() },
+      // m_os { hwinfo::getOSInfo() },
         // m_cpu { hwinfo::getCpuInfo() },
         // m_ram { hwinfo::getRamInfo() }
 
@@ -126,8 +126,8 @@ namespace nxx
 
       [[nodiscard]]
       T data() const noexcept
-        {
-            return m_data;
+      {
+          return m_data;
         }
 
         [[nodiscard]]
