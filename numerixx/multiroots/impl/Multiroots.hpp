@@ -40,6 +40,7 @@
 // ===== Standard Library Includes
 #include <iostream>
 #include <stdexcept>
+#include <expected>
 
 namespace nxx::multiroots
 {
@@ -480,13 +481,13 @@ namespace nxx::multiroots
         {
             using ERROR_T  = std::runtime_error;
             using RESULT_T = blaze::DynamicVector< typename SOLVER::return_type >;
-            using RETURN_T = tl::expected< RESULT_T, ERROR_T >;
+            using RETURN_T = std::expected< RESULT_T, ERROR_T >;
 
             RETURN_T result = solver.current();
 
             // Check for NaN or Inf.
             if (!std::isfinite(norm(solver.evaluate(*result)))) {
-                result = tl::make_unexpected(ERROR_T("Non-finite result!"));
+                result = std::unexpected(ERROR_T("Non-finite result!"));
                 return result;
             }
 
@@ -497,7 +498,7 @@ namespace nxx::multiroots
 
                 // Check for NaN or Inf
                 if (!std::isfinite(norm(solver.evaluate(*result)))) {
-                    result = tl::make_unexpected(ERROR_T("Non-finite result!"));
+                    result = std::unexpected(ERROR_T("Non-finite result!"));
                     return result;
                 }
 

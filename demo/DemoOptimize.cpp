@@ -10,6 +10,7 @@
 #include <iostream>
 #include <numbers>
 #include <ranges>
+#include <format>
 
 int main()
 {
@@ -33,11 +34,11 @@ int main()
 
         if (iter == 0) {
             std::cout << "----------------------------------------------------------------\n";
-            std::cout << fmt::format("{:>10} | {:>15} | {:>15} | {:>15} ", "#", "Lower", "Guess", "Upper") << "\n";
+            std::cout << std::format("{:>10} | {:>15} | {:>15} | {:>15} ", "#", "Lower", "Guess", "Upper") << "\n";
             std::cout << "----------------------------------------------------------------\n";
         }
 
-        std::cout << fmt::format("{:10} | {:15.10f} | {:15.10f} | {:15.10f} ", iter, lower, guess, upper) << "\n";
+        std::cout << std::format("{:10} | {:15.10f} | {:15.10f} | {:15.10f} ", iter, lower, guess, upper) << "\n";
 
         BracketTerminator term;
 

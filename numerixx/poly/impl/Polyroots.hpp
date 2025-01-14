@@ -43,6 +43,7 @@
 #include <optional>
 #include <random>
 #include <vector>
+#include <expected>
 
 namespace nxx::poly {
     namespace impl {
@@ -169,7 +170,7 @@ namespace nxx::poly {
         using RETURN_T = std::conditional_t<std::same_as<RT, void>, VALUE_T, RT>;
 
         // Sort the root and return it
-        tl::expected<std::vector<RETURN_T>, NumerixxError> result = impl::sortRoots<RETURN_T>(root, tolerance);
+        std::expected<std::vector<RETURN_T>, NumerixxError> result = impl::sortRoots<RETURN_T>(root, tolerance);
         return result;
     }
 
@@ -213,7 +214,7 @@ namespace nxx::poly {
         using FLOAT_T = typename POLY_T::fundamental_type;
         using COMPLEX_T = std::complex<FLOAT_T>;
         using RETURN_T = std::conditional_t<std::same_as<RT, void>, VALUE_T, RT>;
-        using EXPECTED_T = tl::expected<std::vector<RETURN_T>, NumerixxError>;
+        using EXPECTED_T = std::expected<std::vector<RETURN_T>, NumerixxError>;
 
         // Extract the coefficients of the polynomial
         const auto &coeffs = poly.coefficients();
@@ -230,7 +231,7 @@ namespace nxx::poly {
 
         // Check if the discriminant or the coefficient 'a' is less than the tolerance
         if (std::abs(q) < tolerance || std::abs(a) < tolerance)
-            return EXPECTED_T(tl::unexpected(NumerixxError("Quadratic polynomial is ill formed.")));
+            return EXPECTED_T(std::unexpected(NumerixxError("Quadratic polynomial is ill formed.")));
 
         // Calculate the roots
         std::vector<COMPLEX_T> roots = { q / a, c / q };
@@ -275,7 +276,7 @@ namespace nxx::poly {
         using FLOAT_T = typename POLY_T::fundamental_type;
         using COMPLEX_T = std::complex<FLOAT_T>;
         using RETURN_T = std::conditional_t<std::same_as<RT, void>, VALUE_T, RT>;
-        using EXPECTED_T = tl::expected<std::vector<RETURN_T>, NumerixxError>;
+        using EXPECTED_T = std::expected<std::vector<RETURN_T>, NumerixxError>;
 
         using std::sqrt;
         using namespace std::numbers;
@@ -344,7 +345,7 @@ namespace nxx::poly {
         using POLY_T = PolynomialTraits<decltype(poly)>;
         using FLOAT_T = typename POLY_T::fundamental_type;
         using COMPLEX_T = std::complex<FLOAT_T>;
-        using EXPECTED_T = tl::expected<std::vector<COMPLEX_T>, NumerixxError>;
+        using EXPECTED_T = std::expected<std::vector<COMPLEX_T>, NumerixxError>;
         using OPTIONAL_T = std::optional<COMPLEX_T>;
 
         const COMPLEX_T order = static_cast<FLOAT_T>(poly.order());
@@ -380,7 +381,7 @@ namespace nxx::poly {
 
             // Return an error if the maximum number of iterations is reached.
             if (i >= max_iterations)
-                return EXPECTED_T(tl::unexpected(NumerixxError("Maximum number of iterations reached.")));
+                return EXPECTED_T(std::unexpected(NumerixxError("Maximum number of iterations reached.")));
 
             // Calculate G and H for the Laguerre step
             G = d1poly(root) / poly(root);
@@ -456,7 +457,7 @@ namespace nxx::poly {
         using FLOAT_T = typename POLY_T::fundamental_type; // Fundamental type, used for complex numbers.
         using COMPLEX_T = std::complex<FLOAT_T>; // Complex type based on the fundamental type.
         using RETURN_T = std::conditional_t<std::same_as<RT, void>, VALUE_T, RT>; // Return type.
-        using EXPECTED_T = tl::expected<std::vector<RETURN_T>, NumerixxError>; // Expected return type.
+        using EXPECTED_T = std::expected<std::vector<RETURN_T>, NumerixxError>; // Expected return type.
 
         // Convert input polynomial to complex type and initialize a vector for roots.
         auto polynomial = Polynomial<COMPLEX_T>(std::vector<COMPLEX_T>{ poly.begin(), poly.end() });
@@ -485,7 +486,7 @@ namespace nxx::poly {
 
             // Check if roots are found, return an error if not.
             if (!roots_found) [[unlikely]]
-                return EXPECTED_T(tl::unexpected(NumerixxError("Error: Root-finding failed.")));
+                return EXPECTED_T(std::unexpected(NumerixxError("Error: Root-finding failed.")));
 
             // Insert found roots into the roots vector.
             roots.insert(roots.end(), (*roots_found).begin(), (*roots_found).end());

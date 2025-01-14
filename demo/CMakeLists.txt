@@ -7,7 +7,7 @@ project(numerixx.samples)
 #==============================================================================
 # Set compiler settings
 #==============================================================================
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #==================================================================================================================
@@ -17,7 +17,7 @@ include(SetDefaultWarnings)
 include(EnableLTO)
 find_package(Boost REQUIRED)
 find_package(sciplot CONFIG REQUIRED)
-find_package(fmt CONFIG REQUIRED)
+#find_package(fmt CONFIG REQUIRED)
 
 #=================================================================================================================
 # Define targets
@@ -27,40 +27,35 @@ find_package(fmt CONFIG REQUIRED)
 add_executable(DemoRootFinding DemoRootFinding.cpp)
 target_link_libraries(DemoRootFinding
         PRIVATE
-        numerixx::roots
-        fmt::fmt-header-only)
+        numerixx::roots)
 target_set_warnings(DemoRootFinding)
 
 # Target: Root searching
 add_executable(DemoRootSearching DemoRootSearching.cpp)
 target_link_libraries(DemoRootSearching
         PRIVATE
-        numerixx::roots
-        fmt::fmt-header-only)
+        numerixx::roots)
 target_set_warnings(DemoRootSearching)
 
 # Target: Polynomials
 add_executable(DemoPoly DemoPoly.cpp)
 target_link_libraries(DemoPoly
         PRIVATE
-        numerixx::poly
-        fmt::fmt-header-only)
+        numerixx::poly)
 target_set_warnings(DemoPoly)
 
 # Target: Numerical derivatives
 add_executable(DemoDeriv DemoDeriv.cpp)
 target_link_libraries(DemoDeriv
         PRIVATE
-        numerixx::deriv
-        fmt::fmt-header-only)
+        numerixx::deriv)
 target_set_warnings(DemoDeriv)
 
 # Target: Numerical integration
 add_executable(DemoIntegrate DemoIntegrate.cpp)
 target_link_libraries(DemoIntegrate
         PRIVATE
-        numerixx::integrate
-        fmt::fmt-header-only)
+        numerixx::integrate)
 target_set_warnings(DemoIntegrate)
 
 # Target: Numerical interpolation
@@ -68,7 +63,6 @@ add_executable(DemoInterpolate DemoInterpolate.cpp)
 target_link_libraries(DemoInterpolate
         PRIVATE
         numerixx::interpolate
-        fmt::fmt-header-only
         sciplot::sciplot)
 target_set_warnings(DemoInterpolate)
 target_enable_lto(DemoInterpolate)
@@ -80,7 +74,6 @@ target_link_libraries(DemoOptimize
         numerixx::optimize
         numerixx::deriv
         numerixx::roots
-        fmt::fmt-header-only
         sciplot::sciplot)
 target_set_warnings(DemoOptimize)
 
@@ -88,8 +81,7 @@ target_set_warnings(DemoOptimize)
 add_executable(DemoMultiroot DemoMultiroot.cpp)
 target_link_libraries(DemoMultiroot
         PRIVATE
-        numerixx::multiroots
-        fmt::fmt-header-only)
+        numerixx::multiroots)
 target_set_warnings(DemoMultiroot)
 
 #=======================================================================================================================

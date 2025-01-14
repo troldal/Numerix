@@ -51,6 +51,7 @@
 #include <random>
 #include <type_traits>
 #include <span>
+#include <expected>
 
 /**
  * @file Integration.hpp
@@ -590,7 +591,7 @@ namespace nxx::integrate
     {
         using RESULT_T = StructCommonType_t< STRUCT_T >;
         using ERROR_T = Error< detail::IntegrationErrorData< RESULT_T, ITER_T > >; /**< Type for error handling. */
-        using RETURN_T = tl::expected< RESULT_T, ERROR_T >;                        /**< Type for the function return value. */
+        using RETURN_T = std::expected< RESULT_T, ERROR_T >;                        /**< Type for the function return value. */
         using std::isfinite;
 
         const auto& [lower, upper] = bounds;
@@ -598,7 +599,7 @@ namespace nxx::integrate
 
         auto result = solver.current();
         if (!isfinite(result)) {
-            return RETURN_T(tl::make_unexpected(ERROR_T(
+            return RETURN_T(std::unexpected(ERROR_T(
                 decltype(solver)::SolverName + " integration failed: Initial estimate is not finite.",
                 NumerixxErrorType::Integral,
                 { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
@@ -611,7 +612,7 @@ namespace nxx::integrate
             solver.iterate();
 
             if (!isfinite(solver.current())) {
-                return RETURN_T(tl::make_unexpected(ERROR_T(decltype(solver)::SolverName + " integration failed: Result is not finite.",
+                return RETURN_T(std::unexpected(ERROR_T(decltype(solver)::SolverName + " integration failed: Result is not finite.",
                                                             NumerixxErrorType::Integral,
                                                             { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
             }
@@ -624,7 +625,7 @@ namespace nxx::integrate
             result = solver.current();
         }
 
-        return RETURN_T(tl::make_unexpected(ERROR_T(
+        return RETURN_T(std::unexpected(ERROR_T(
             decltype(solver)::SolverName + " integration failed: Maximum number of iterations reached.",
             NumerixxErrorType::Integral,
             { .value = result, .eabs = eabs, .erel = erel, .iterations = maxIterations })));

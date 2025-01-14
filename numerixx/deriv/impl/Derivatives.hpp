@@ -34,15 +34,13 @@
 #include <Concepts.hpp>
 #include <Error.hpp>
 
-// ===== External Includes
-#include "_external.hpp"
-
 // ===== Standard Library Includes
 #include <Constants.hpp>
 #include <cmath>
 #include <limits>
 #include <type_traits>
 #include <utility>
+#include <expected>
 
 namespace nxx::deriv {
     namespace detail {
@@ -575,13 +573,13 @@ namespace nxx::deriv {
             static_assert(
                 nxx::IsFloat<RETURN_T>, "The return type of the provided function must be a floating point type.");
             using DerivError = Error<DerivErrorData<decltype(val)>>;
-            using EXPECTED_T = tl::expected<RETURN_T, DerivError>;
+            using EXPECTED_T = std::expected<RETURN_T, DerivError>;
 
             using std::isfinite;
             if (auto deriv = ALGO{}(function, val, std::max(stepsize, stepsize * val)); isfinite(deriv))
                 return EXPECTED_T(deriv);
             else
-                return EXPECTED_T(tl::make_unexpected(DerivError("Computation of derivative gave non-finite result.",
+                return EXPECTED_T(std::unexpected(DerivError("Computation of derivative gave non-finite result.",
                     NumerixxErrorType::Deriv,
                     { .x = ARG_T(val), .h = ARG_T(stepsize), .f = ARG_T(function(val)), .df = ARG_T(deriv) })));
         }

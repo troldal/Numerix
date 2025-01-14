@@ -6,7 +6,6 @@
 #include <deque>
 #include <iomanip>
 #include <iostream>
-#include <fmt/format.h>
 
 void printpoly(auto coefficients) {
 

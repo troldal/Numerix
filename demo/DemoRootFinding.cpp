@@ -11,6 +11,7 @@
 #include <concepts>
 #include <iomanip>
 #include <iostream>
+#include <format>
 
 using NXX_FLOAT = double; // boost::multiprecision::cpp_bin_float_50;
 
@@ -71,11 +72,11 @@ int main()
 
         if (iter == 0) {
             std::cout << "----------------------------------------------------------------------------------\n";
-            std::cout << fmt::format("{:>10} | {:>15} | {:>15} ", "#", "Guess", "Eval") << "\n";
+            std::cout << std::format("{:>10} | {:>15} | {:>15} ", "#", "Guess", "Eval") << "\n";
             std::cout << "----------------------------------------------------------------------------------\n";
         }
 
-        std::cout << fmt::format("{:10} | {:15.10f} | {:15.10f} ", iter, guess, eval) << "\n";
+        std::cout << std::format("{:10} | {:15.10f} | {:15.10f} ", iter, guess, eval) << "\n";
 
         // PolishingStopToken term;
 
@@ -86,11 +87,11 @@ int main()
         return false;
     };
 
-    auto outputter = [](const auto &data) -> tl::expected<double, std::string> {
+    auto outputter = [](const auto &data) -> std::expected<double, std::string> {
         auto [iter, guess, previous] = data;
-        using expected = tl::expected<decltype(guess), std::string>;
+        using expected = std::expected<decltype(guess), std::string>;
 
-        if (iter >= 5) return tl::make_unexpected(std::string("Too many iterations"));
+        if (iter >= 5) return std::unexpected(std::string("Too many iterations"));
         return expected(guess);
     };
 
