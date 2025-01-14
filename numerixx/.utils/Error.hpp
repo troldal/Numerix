@@ -61,10 +61,10 @@ namespace nxx
           std::stacktrace trace = std::stacktrace())
         : std::runtime_error{ str }, m_type{ type }, m_location{ loc }, m_backtrace{ std::move(trace) }
       // m_os { hwinfo::getOSInfo() },
-        // m_cpu { hwinfo::getCpuInfo() },
-        // m_ram { hwinfo::getRamInfo() }
+      // m_cpu { hwinfo::getCpuInfo() },
+      // m_ram { hwinfo::getRamInfo() }
 
-        {}
+      {}
 
         //~NumerixxError() override = default;
 
@@ -133,7 +133,7 @@ namespace nxx
       [[nodiscard]]
       std::string log() const override
       {
-            std::stringstream logStream;
+          std::stringstream logStream;
             logStream << NumerixxError::log() << "\n";
             logStream << "Details:\n" << m_data << "\n\n";
             return logStream.str();
