@@ -38,9 +38,9 @@
 #include <Interp.hpp>
 
 // ===== Standard Library Includes
+#include <expected>
 #include <iostream>
 #include <stdexcept>
-#include <expected>
 
 namespace nxx::multiroots
 {
@@ -480,8 +480,8 @@ namespace nxx::multiroots
         auto multisolve_impl(SOLVER solver, IsFloat auto eps, std::integral auto maxiter)
         {
             using ERROR_T  = std::runtime_error;
-            using RESULT_T = blaze::DynamicVector< typename SOLVER::return_type >;
-            using RETURN_T = std::expected< RESULT_T, ERROR_T >;
+            using RESULT_T = blaze::DynamicVector< typename SOLVER::return_type>;
+            using RETURN_T = std::expected<RESULT_T, ERROR_T>;
 
             RETURN_T result = solver.current();
 

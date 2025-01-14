@@ -39,9 +39,9 @@
 // ===== Standard Library Includes
 #include <source_location>
 #include <sstream>
+#include <stacktrace>
 #include <stdexcept>
 #include <utility>
-#include <stacktrace>
 
 
 // TODO: Consider JSON output
@@ -58,8 +58,8 @@ namespace nxx
         explicit NumerixxError(const std::string&            str,
                                const NumerixxErrorType       type  = NumerixxErrorType::General,
                                const std::source_location&   loc   = std::source_location::current(),
-                               std::stacktrace trace = std::stacktrace())
-            : std::runtime_error { str },
+          std::stacktrace trace = std::stacktrace())
+        : std::runtime_error { str },
               m_type { type },
               m_location { loc },
               m_backtrace{ std::move(trace) }
@@ -84,7 +84,7 @@ namespace nxx
         }
 
         [[nodiscard]]
-        virtual const std::stacktrace& stack() const noexcept
+        virtual const std::stacktrace &stack() const noexcept
         {
             return m_backtrace;
         }
@@ -123,8 +123,8 @@ namespace nxx
                        const NumerixxErrorType       type  = NumerixxErrorType::General,
                        T                             data  = {},
                        const std::source_location&   loc   = std::source_location::current(),
-                       std::stacktrace trace = std::stacktrace())
-            : NumerixxError(str, type, loc, std::move(trace)),
+          std::stacktrace trace = std::stacktrace())
+        : NumerixxError(str, type, loc, std::move(trace)),
               m_data { std::move(data) }
         {}
 

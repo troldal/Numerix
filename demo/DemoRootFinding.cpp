@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <array>
 #include <concepts>
+#include <format>
 #include <iomanip>
 #include <iostream>
-#include <format>
 
 using NXX_FLOAT = double; // boost::multiprecision::cpp_bin_float_50;
 

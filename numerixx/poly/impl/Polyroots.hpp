@@ -39,11 +39,11 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <expected>
 #include <numbers>
 #include <optional>
 #include <random>
 #include <vector>
-#include <expected>
 
 namespace nxx::poly {
     namespace impl {

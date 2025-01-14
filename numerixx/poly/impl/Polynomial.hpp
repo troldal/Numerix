@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <cmath>
 #include <complex>
+#include <expected>
 #include <functional>
 #include <iterator>
 #include <numeric>
@@ -45,7 +46,6 @@
 #include <sstream>
 #include <type_traits>
 #include <vector>
-#include <expected>
 
 namespace nxx::poly
 {
@@ -314,7 +314,7 @@ namespace nxx::poly
             requires std::convertible_to< U, T > || nxx::IsFloat< U > || IsComplex< U >
         [[nodiscard]]
         inline auto evaluate(U value) const
-            -> std::expected< std::common_type_t< T, U >, Error< detail::PolyErrorData< std::common_type_t< T, U > > > >
+            -> std::expected<std::common_type_t<T, U>, Error<detail::PolyErrorData<std::common_type_t<T, U>>>>
         {
             using TYPE      = std::common_type_t< T, U >;
             using PolyError = Error< detail::PolyErrorData< TYPE > >;
@@ -328,7 +328,7 @@ namespace nxx::poly
             if (m_coefficients.size() <= 1 || coeff_begin == coeff_end) [[unlikely]]
 
                 return std::unexpected(PolyError("Polynomial error",
-                                                nxx::NumerixxErrorType::Poly,
+                    nxx::NumerixxErrorType::Poly,
                                                 { .details      = "Polynomial evaluation failed; no coefficients.",
                                                   .coefficients = { m_coefficients.begin(), m_coefficients.end() } }));
 
@@ -340,8 +340,8 @@ namespace nxx::poly
 
             if (!std::isfinite(std::abs(result))) [[unlikely]]
                 return std::unexpected(PolyError("Polynomial error",
-                                                nxx::NumerixxErrorType::Poly,
-                                                { .details      = "Polynomial evaluation failed; non-finite result.",
+                    nxx::NumerixxErrorType::Poly,
+                    { .details      = "Polynomial evaluation failed; non-finite result.",
                                                   .coefficients = { m_coefficients.begin(), m_coefficients.end() },
                                                   .arg          = value,
                                                   .result       = result }));

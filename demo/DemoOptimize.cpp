@@ -6,11 +6,11 @@
 #include <cmath>
 
 #include <algorithm>
+#include <format>
 #include <iomanip>
 #include <iostream>
 #include <numbers>
 #include <ranges>
-#include <format>
 
 int main()
 {

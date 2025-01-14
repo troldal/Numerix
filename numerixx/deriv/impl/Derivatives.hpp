@@ -37,10 +37,10 @@
 // ===== Standard Library Includes
 #include <Constants.hpp>
 #include <cmath>
+#include <expected>
 #include <limits>
 #include <type_traits>
 #include <utility>
-#include <expected>
 
 namespace nxx::deriv {
     namespace detail {

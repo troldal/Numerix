@@ -8,10 +8,10 @@
 #include <Deriv.hpp>
 #include <cmath>
 
+#include <format>
 #include <iomanip>
 #include <iostream>
 #include <numbers>
-#include <format>
 
 using NXX_FLOAT = double;//boost::multiprecision::cpp_bin_float_100;
 
@@ -234,14 +234,15 @@ int main()
 void print(const auto& testcases)
 {
     std::cout << "------------------------------------------------------------------------------------------------------\n";
-    std::cout << std::format("{:>10} | {:>35} | {:>15} | {:>15} | {:>15} ", "#", "Function", "Evaluation Pt.", "True dF", "Calculated dF")
+    std::cout << std::format(
+        "{:>10} | {:>35} | {:>15} | {:>15} | {:>15} ", "#", "Function", "Evaluation Pt.", "True dF", "Calculated dF")
               << std::endl;
     std::cout << "------------------------------------------------------------------------------------------------------\n";
 
     size_t index = 1;
     for (auto item : testcases) {
         std::cout << std::format("{:10} | {:>35} | {:15.8f} | {:15.8f} | {:15.8f} ",
-                                 index,
+            index,
                                  std::get< 0 >(item),
                                  std::get< 1 >(item),
                                  std::get< 2 >(item),
