@@ -589,8 +589,8 @@ namespace nxx::integrate
                    TOL_T    tolerance     = epsilon< StructCommonType_t< STRUCT_T > >(),
                    ITER_T   maxIterations = 25)
     {
-        using RESULT_T = StructCommonType_t< STRUCT_T >;
-        using ERROR_T = Error< detail::IntegrationErrorData< RESULT_T, ITER_T>>; /**< Type for error handling. */
+        using RESULT_T = StructCommonType_t< STRUCT_T>;
+        using ERROR_T = Error<detail::IntegrationErrorData<RESULT_T, ITER_T>>; /**< Type for error handling. */
         using RETURN_T = std::expected<RESULT_T, ERROR_T>; /**< Type for the function return value. */
         using std::isfinite;
 
@@ -601,7 +601,7 @@ namespace nxx::integrate
         if (!isfinite(result)) {
             return RETURN_T(std::unexpected(
                 ERROR_T(decltype(solver)::SolverName + " integration failed: Initial estimate is not finite.",
-                NumerixxErrorType::Integral,
+                    NumerixxErrorType::Integral,
                 { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
         }
 
@@ -615,7 +615,7 @@ namespace nxx::integrate
                 return RETURN_T(
                     std::unexpected(ERROR_T(decltype(solver)::SolverName + " integration failed: Result is not finite.",
                         NumerixxErrorType::Integral,
-                                                            { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
+                        { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
             }
 
             eabs = abs(solver.current() - result);
@@ -628,8 +628,8 @@ namespace nxx::integrate
 
         return RETURN_T(std::unexpected(
             ERROR_T(decltype(solver)::SolverName + " integration failed: Maximum number of iterations reached.",
-            NumerixxErrorType::Integral,
-            { .value = result, .eabs = eabs, .erel = erel, .iterations = maxIterations })));
+                NumerixxErrorType::Integral,
+                { .value = result, .eabs = eabs, .erel = erel, .iterations = maxIterations })));
     }
 
     /**

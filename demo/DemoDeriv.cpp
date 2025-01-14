@@ -243,7 +243,7 @@ void print(const auto& testcases)
     for (auto item : testcases) {
         std::cout << std::format("{:10} | {:>35} | {:15.8f} | {:15.8f} | {:15.8f} ",
             index,
-                                 std::get< 0 >(item),
+            std::get< 0 >(item),
                                  std::get< 1 >(item),
                                  std::get< 2 >(item),
                                  std::get< 3 >(item)(std::get< 1 >(item)))

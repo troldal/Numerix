@@ -480,7 +480,7 @@ namespace nxx::multiroots
         auto multisolve_impl(SOLVER solver, IsFloat auto eps, std::integral auto maxiter)
         {
             using ERROR_T  = std::runtime_error;
-            using RESULT_T = blaze::DynamicVector< typename SOLVER::return_type>;
+            using RESULT_T = blaze::DynamicVector<typename SOLVER::return_type>;
             using RETURN_T = std::expected<RESULT_T, ERROR_T>;
 
             RETURN_T result = solver.current();
