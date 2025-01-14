@@ -344,7 +344,7 @@ namespace nxx::poly
                     { .details = "Polynomial evaluation failed; non-finite result.",
                         .coefficients = { m_coefficients.begin(), m_coefficients.end() },
                         .arg = value,
-                        .result       = result }));
+                        .result = result }));
 
             return result;
         }
