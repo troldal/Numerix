@@ -589,7 +589,7 @@ namespace nxx::integrate
                    TOL_T    tolerance     = epsilon< StructCommonType_t< STRUCT_T > >(),
                    ITER_T   maxIterations = 25)
     {
-        using RESULT_T = StructCommonType_t< STRUCT_T>;
+        using RESULT_T = StructCommonType_t<STRUCT_T>;
         using ERROR_T = Error<detail::IntegrationErrorData<RESULT_T, ITER_T>>; /**< Type for error handling. */
         using RETURN_T = std::expected<RESULT_T, ERROR_T>; /**< Type for the function return value. */
         using std::isfinite;
@@ -602,7 +602,7 @@ namespace nxx::integrate
             return RETURN_T(std::unexpected(
                 ERROR_T(decltype(solver)::SolverName + " integration failed: Initial estimate is not finite.",
                     NumerixxErrorType::Integral,
-                { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
+                    { .value = result, .eabs = 0.0, .erel = 0.0, .iterations = 0 })));
         }
 
         RESULT_T eabs;

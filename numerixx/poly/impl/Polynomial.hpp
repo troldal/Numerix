@@ -329,8 +329,8 @@ namespace nxx::poly
 
                 return std::unexpected(PolyError("Polynomial error",
                     nxx::NumerixxErrorType::Poly,
-                    { .details      = "Polynomial evaluation failed; no coefficients.",
-                                                  .coefficients = { m_coefficients.begin(), m_coefficients.end() } }));
+                    { .details = "Polynomial evaluation failed; no coefficients.",
+                        .coefficients = { m_coefficients.begin(), m_coefficients.end() } }));
 
             // ===== Horner's method implemented in terms of std::accummulate.
             TYPE result =
@@ -343,8 +343,8 @@ namespace nxx::poly
                     nxx::NumerixxErrorType::Poly,
                     { .details = "Polynomial evaluation failed; non-finite result.",
                         .coefficients = { m_coefficients.begin(), m_coefficients.end() },
-                                                  .arg          = value,
-                                                  .result       = result }));
+                        .arg = value,
+                        .result       = result }));
 
             return result;
         }
